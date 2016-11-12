@@ -1,0 +1,49 @@
+<!-- <html>
+  <head>
+    <title>Location Recommender</title>
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+  </head>
+  <body>
+  <h1> A PROJECT </h1>
+    {% for x in long_lat_lst%}
+    	<p>{{ x }}</p>
+    {% endfor %} 
+  </body>
+</html> -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+       #map {
+        height: 400px;
+        width: 100%;
+       }
+    </style>
+  </head>
+  <body>
+    <h3>My Google Maps Demo</h3>
+    <div id="map"></div>
+    <script>
+      function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 4,
+          center: {lat: {{ center[0] }}, lng: {{ center[1] }} }
+        });
+
+        {% for val in lat_lon %}
+        	pos = {lat: {{ val[0] }}, lng: {{ val[1] }}  }
+	        var marker = new google.maps.Marker({
+	          position: pos,
+	          map: map
+	        });
+        {% endfor %}
+
+
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJQZRoxGc1syHPtya_MRuMY_6BXrdH2EA&callback=initMap">
+    </script>
+  </body>
+</html>
